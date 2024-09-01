@@ -41,14 +41,10 @@
             let canvas = createCanvas(400, 400);
             canvas.parent('canvas-container');
             
-            // Load your image here
-            // HIGHLIGHT: Replace 'your-image.jpg' with the path to your actual image file
             img = loadImage('mat189.png');
 
-            // Set the circle color to #5CCC2F
             circleColor = color('#5CCC2F');
 
-            // Create initial circles
             for (let i = 0; i < 8; i++) {
                 circles.push(new Circle(random(width), random(height)));
             }
@@ -57,18 +53,15 @@
         function draw() {
             background(220);
 
-            // Display the image
             if (img) {
                 image(img, 0, 0, width, height);
             }
 
-            // Update and display circles
             for (let circle of circles) {
                 circle.update();
                 circle.display();
             }
 
-            // Draw the outer ring
             noFill();
             stroke(circleColor);
             strokeWeight(4);
