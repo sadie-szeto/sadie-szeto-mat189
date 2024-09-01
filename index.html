@@ -4,12 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sadie Szeto</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #content {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Sadie Szeto</h1>
-    <p>Born and raised in the vibrant cityscape of Hong Kong, Sadie Szeto embodies a phenomenological approach to content creation, where fashion meets cultural dialectic. Her journey from the East to the West at eighteen years old wasn't just a geographical move—it was a praxis in the making, blending her deep-rooted fascination with American culture into a compelling narrative.</p>
-    <p>Now a dynamic content creator, Sadie shares her data-driven fashion insights across Instagram and TikTok, where she captivates her audience with a unique blend of style and substance. Her podcast, <em>Close Friends Story</em>, invites listeners into the intimate and intricate world of American culture, while her thought-provoking articles on Medium offer a reflective exploration of this ongoing cultural dialogue.</p>
-    <p>Connect with Sadie on Instagram and TikTok <a href="https://www.instagram.com/sadiestk">@sadiestk</a>, read her latest insights on Medium <a href="https://medium.com/@sadie.szeto">@sadie.szeto</a>, and tune into her podcast on Spotify <a href="https://open.spotify.com/show/0xzlFveuSeZTaafR111PXW?si=433d5dfce21c429e"><em>Close Friends Story</em></a>.</p>
-</body> 
+    <div id="canvas-container"></div>
+    <div id="content">
+        <h1>Sadie Szeto</h1>
+        <p>Born and raised in the vibrant cityscape of Hong Kong, Sadie Szeto embodies a phenomenological approach to content creation, where fashion meets cultural dialectic. Her journey from the East to the West at eighteen years old wasn't just a geographical move—it was a praxis in the making, blending her deep-rooted fascination with American culture into a compelling narrative.</p>
+        <p>Now a dynamic content creator, Sadie shares her data-driven fashion insights across Instagram and TikTok, where she captivates her audience with a unique blend of style and substance. Her podcast, <em>Close Friends Story</em>, invites listeners into the intimate and intricate world of American culture, while her thought-provoking articles on Medium offer a reflective exploration of this ongoing cultural dialogue.</p>
+        <p>Connect with Sadie on Instagram and TikTok <a href="https://www.instagram.com/sadiestk">@sadiestk</a>, read her latest insights on Medium <a href="https://medium.com/@sadie.szeto">@sadie.szeto</a>, and tune into her podcast on Spotify <a href="https://open.spotify.com/show/0xzlFveuSeZTaafR111PXW?si=433d5dfce21c429e"><em>Close Friends Story</em></a>.</p>
+    </div>
+
+    <script>
+        let img;
+        let circles = [];
+
+        function setup() {
+            let canvas = createCanvas(400, 400);
+            canvas.parent('canvas-container');
+            
+            // Load your image here
+            // HIGHLIGHT: Replace 'your-image.jpg' with the path to your actual image file
+            img = loadImage('your-image.jpg');
+
+            // Create initial circles
+            for (let i = 0; i < 8; i++) {
+                circles.push(new Circle(random(width), random(height)));
+            }
+        }
+
+        function draw() {
+            background(220);
+
+            // Display the image
+            if (img) {
+                image(img, 0, 0, width, height);
+            }
+
+            // Update and display circles
+            for (let circle of circles) {
+                circle.update();
+                circle.display();
+            }
+
+            // Draw the outer ring
+            noFill();
+            stroke(255);
+            strokeWeight(4);
+            ellipse(width / 2, height / 2, width - 20, height - 20);
+        }
+
+        class Circle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = random(10, 30);
+                this.speed = random(0.5, 2);
+                this.angle = random(TWO_PI);
+            }
+
+            update() {
+                this.angle += this.speed * 0.02;
+                this.x = width / 2 + cos(this.angle) * (width / 2 - 30);
+                this.y = height / 2 + sin(this.angle) * (height / 2 - 30);
+            }
+
+            display() {
+                noStroke();
+                fill(255, 100);
+                ellipse(this.x, this.y, this.size);
+            }
+        }
+    </script>
 </body>
 </html>
