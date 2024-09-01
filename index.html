@@ -35,12 +35,18 @@
     <script>
         let img;
         let circles = [];
+        let circleColor;
 
         function setup() {
             let canvas = createCanvas(400, 400);
             canvas.parent('canvas-container');
             
+            // Load your image here
+            // HIGHLIGHT: Replace 'your-image.jpg' with the path to your actual image file
             img = loadImage('cover art.png');
+
+            // Set the circle color to #5CCC2F
+            circleColor = color('#5CCC2F');
 
             // Create initial circles
             for (let i = 0; i < 8; i++) {
@@ -64,7 +70,7 @@
 
             // Draw the outer ring
             noFill();
-            stroke(255);
+            stroke(circleColor);
             strokeWeight(4);
             ellipse(width / 2, height / 2, width - 20, height - 20);
         }
@@ -86,7 +92,7 @@
 
             display() {
                 noStroke();
-                fill(255, 100);
+                fill(circleColor);
                 ellipse(this.x, this.y, this.size);
             }
         }
